@@ -1,3 +1,3 @@
 # logit
 logit data science curriculum materials  
-[logit data science](logitdatascience.com)
+[logit data science](http://logitdatascience.com)
