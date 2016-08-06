@@ -1,0 +1,777 @@
+>>> x = 1.2
+>>> id(x)
+140311619756544
+>>> hex(id(x))
+'0x7f9cd840e200'
+>>> y = 1.2
+>>> hex(id(x))
+'0x7f9cd840e200'
+>>> hex(id(y))
+'0x7f9cd840e1e8'
+>>> x = None
+>>> hex(id(x))
+'0x10209df88'
+>>> y = None
+>>> hex(id(y))
+'0x10209df88'
+>>> import types
+>>> types.NoneType 
+<type 'NoneType'>
+>>> type(None)
+<type 'NoneType'>
+>>> x = [0,1,2]
+>>> def extend(x, y):
+...   x.extend(y)
+...   return 
+... 
+>>> extend(x, [3,4])
+>>> x
+[0, 1, 2, 3, 4]
+>>> x = extend(x, [5,6])
+>>> x
+>>> type(x)
+<type 'NoneType'>
+>>> x = range(10).sort()
+>>> x
+>>> s = 'a c b'.replace('c','x').split().sort()
+>>> s
+>>> s = sorted('a c b'.replace('c','x').split())      
+>>> s
+['a', 'b', 'x']
+>>> '''He said "don't!"'''
+'He said "don\'t!"'
+>>> '''He said "don't!"'''
+'He said "don\'t!"'
+>>> '''He said "don't!" '''
+'He said "don\'t!" '
+>>> '''He said "don't!"    
+... '''
+'He said "don\'t!"\n'
+>>> print '''He said "don't!"'''
+He said "don't!"
+>>> repr('''He said "don't!"''')
+'\'He said "don\\\'t!"\''
+>>> import numpy as np
+>>> np
+<module 'numpy' from '/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/__init__.pyc'>
+>>> print np.__doc__
+
+NumPy
+=====
+
+Provides
+  1. An array object of arbitrary homogeneous items
+  2. Fast mathematical operations over arrays
+  3. Linear Algebra, Fourier Transforms, Random Number Generation
+
+How to use the documentation
+----------------------------
+Documentation is available in two forms: docstrings provided
+with the code, and a loose standing reference guide, available from
+`the NumPy homepage <http://www.scipy.org>`_.
+
+We recommend exploring the docstrings using
+`IPython <http://ipython.scipy.org>`_, an advanced Python shell with
+TAB-completion and introspection capabilities.  See below for further
+instructions.
+
+The docstring examples assume that `numpy` has been imported as `np`::
+
+  >>> import numpy as np
+
+Code snippets are indicated by three greater-than signs::
+
+  >>> x = 42
+  >>> x = x + 1
+
+Use the built-in ``help`` function to view a function's docstring::
+
+  >>> help(np.sort)
+  ... # doctest: +SKIP
+
+For some objects, ``np.info(obj)`` may provide additional help.  This is
+particularly true if you see the line "Help on ufunc object:" at the top
+of the help() page.  Ufuncs are implemented in C, not Python, for speed.
+The native Python help() does not know how to view their help, but our
+np.info() function does.
+
+To search for documents containing a keyword, do::
+
+  >>> np.lookfor('keyword')
+  ... # doctest: +SKIP
+
+General-purpose documents like a glossary and help on the basic concepts
+of numpy are available under the ``doc`` sub-module::
+
+  >>> from numpy import doc
+  >>> help(doc)
+  ... # doctest: +SKIP
+
+Available subpackages
+---------------------
+doc
+    Topical documentation on broadcasting, indexing, etc.
+lib
+    Basic functions used by several sub-packages.
+random
+    Core Random Tools
+linalg
+    Core Linear Algebra Tools
+fft
+    Core FFT routines
+polynomial
+    Polynomial tools
+testing
+    Numpy testing tools
+f2py
+    Fortran to Python Interface Generator.
+distutils
+    Enhancements to distutils with support for
+    Fortran compilers support and more.
+
+Utilities
+---------
+test
+    Run numpy unittests
+show_config
+    Show numpy build configuration
+dual
+    Overwrite certain functions with high-performance Scipy tools
+matlib
+    Make everything matrices.
+__version__
+    Numpy version string
+
+Viewing documentation using IPython
+-----------------------------------
+Start IPython with the NumPy profile (``ipython -p numpy``), which will
+import `numpy` under the alias `np`.  Then, use the ``cpaste`` command to
+paste examples into the shell.  To see which functions are available in
+`numpy`, type ``np.<TAB>`` (where ``<TAB>`` refers to the TAB key), or use
+``np.*cos*?<ENTER>`` (where ``<ENTER>`` refers to the ENTER key) to narrow
+down the list.  To view the docstring for a function, use
+``np.cos?<ENTER>`` (to view the docstring) and ``np.cos??<ENTER>`` (to view
+the source code).
+
+Copies vs. in-place operation
+-----------------------------
+Most of the functions in `numpy` return a copy of the array argument
+(e.g., `np.sort`).  In-place versions of these functions are often
+available as array methods, i.e. ``x = np.array([1,2,3]); x.sort()``.
+Exceptions to this rule are documented.
+
+
+>>> type(np.__doc__)
+<type 'str'>
+>>> np.__doc__[:20]
+'\nNumPy\n=====\n\nProvid'
+>>> 
+>>> def extend(x, y):
+...   '''extend x with y'''
+...   x.extend(y)
+... 
+>>> help(extend)
+
+>>> extend.__doc__
+'extend x with y'
+>>> extend.__doc__ = 'oops'
+>>> help(extend)
+
+>>> "%(x)s is 100" % {'x':100} 
+'100 is 100'
+>>> "%(x)s > %(y)s" % {'x':100, 'y':200} 
+'100 > 200'
+>>> x = 100
+>>> y = 200
+>>> "%(x)s > %(y)s" % globals()          
+'100 > 200'
+>>> "{x} > {y}".format(**globals())
+'100 > 200'
+>>> exec("{x} > {y}".format(**globals()))
+>>> eval("{x} > {y}".format(**globals()))
+False
+>>> exec("z = {x} > {y}".format(**globals()))
+>>> z
+False
+>>> "rm *.*"
+'rm *.*'
+>>> "import os; os.system('rm *.*')"
+"import os; os.system('rm *.*')"
+>>> 
+>>> s = 'abc'
+>>> s
+'abc'
+>>> globals().keys()
+['extend', '__builtins__', '__package__', 'np', 's', 'x', 'y', '__name__', 'z', '__doc__', 'types']
+>>> import StringIO
+>>> StringIO.StringIO()
+<StringIO.StringIO instance at 0x1030bb8c0>
+>>> f = open('hello.txt', 'w')
+>>> f
+<open file 'hello.txt', mode 'w' at 0x1030b2b70>
+>>> f.write('hello world')
+>>> f.close()
+>>> f = open('hello.txt', 'r')
+>>> f.read()
+'hello world'
+>>> f.close()
+>>> 
+>>> def doit(*args, **kwds):
+...   return args, kwds
+... 
+>>> doit()
+((), {})
+>>> doit(0,1,2)
+((0, 1, 2), {})
+>>> doit(0,1,x=2,y=3)
+((0, 1), {'y': 3, 'x': 2})
+>>> 
+>>> def doit(*args):
+...   if len(args) is 1:
+...     x,y = None, args[0]
+...   else:
+...     x,y = args
+...   return x,y
+... 
+>>> doit(3)
+(None, 3)
+>>> doit(2,3)
+(2, 3)
+>>> range(10,0,-1)
+[10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+>>> range(0,10,-1)
+[]
+>>> slice(0,10,2)
+slice(0, 10, 2)
+>>> s = slice(0,10,2)
+>>> s
+slice(0, 10, 2)
+>>> x = range(0,10,1)
+>>> x
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> x[s]
+[0, 2, 4, 6, 8]
+>>> s = slice(0,10,2)
+>>> x[s]
+[0, 2, 4, 6, 8]
+>>> x[0:10:2]
+[0, 2, 4, 6, 8]
+>>> x
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> x[-3]
+7
+>>> x[100]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+>>> x[-3] = None
+>>> x
+[0, 1, 2, 3, 4, 5, 6, None, 8, 9]
+>>> x[-3]
+>>> x[100] = 100
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list assignment index out of range
+>>> x
+[0, 1, 2, 3, 4, 5, 6, None, 8, 9]
+>>> x[-3] = 7
+>>>   
+>>> x
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> x[::2]
+[0, 2, 4, 6, 8]
+>>> x[0:5]
+[0, 1, 2, 3, 4]
+>>> x[:10]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> x[:100]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> x[100:1000]
+[]
+>>> x.__getitem__(0)
+0
+>>> x[0]
+0
+>>> import collections
+>>> collections.deque
+<type 'collections.deque'>
+>>> x
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> y = list('abfgxrhsrd')
+>>> y
+['a', 'b', 'f', 'g', 'x', 'r', 'h', 's', 'r', 'd']
+>>> y.sort()
+>>> y
+['a', 'b', 'd', 'f', 'g', 'h', 'r', 'r', 's', 'x']
+>>> y = list('abfGxRhSrd')
+>>> y.sort()
+>>> y
+['G', 'R', 'S', 'a', 'b', 'd', 'f', 'h', 'r', 'x']
+>>> import string
+>>> y.sort(key=string.lower)
+>>> y
+['a', 'b', 'd', 'f', 'G', 'h', 'R', 'r', 'S', 'x']
+>>> 
+>>> y
+['a', 'b', 'd', 'f', 'G', 'h', 'R', 'r', 'S', 'x']
+>>> list((string.lower(char),char) for char in x)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 1, in <genexpr>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/string.py", line 228, in lower
+    return s.lower()
+AttributeError: 'int' object has no attribute 'lower'
+>>> list((string.lower(char),char) for char in y)
+[('a', 'a'), ('b', 'b'), ('d', 'd'), ('f', 'f'), ('g', 'G'), ('h', 'h'), ('r', 'R'), ('r', 'r'), ('s', 'S'), ('x', 'x')]
+>>> sorted((string.lower(char),char) for char in y)
+[('a', 'a'), ('b', 'b'), ('d', 'd'), ('f', 'f'), ('g', 'G'), ('h', 'h'), ('r', 'R'), ('r', 'r'), ('s', 'S'), ('x', 'x')]
+>>> y = list('abfGxRhSrd')
+>>> sorted((string.lower(char),char) for char in y)
+[('a', 'a'), ('b', 'b'), ('d', 'd'), ('f', 'f'), ('g', 'G'), ('h', 'h'), ('r', 'R'), ('r', 'r'), ('s', 'S'), ('x', 'x')]
+>>> zip(*sorted((string.lower(char),char) for char in y))
+[('a', 'b', 'd', 'f', 'g', 'h', 'r', 'r', 's', 'x'), ('a', 'b', 'd', 'f', 'G', 'h', 'R', 'r', 'S', 'x')]
+>>> zip(*sorted((string.lower(char),char) for char in y))[-1]
+('a', 'b', 'd', 'f', 'G', 'h', 'R', 'r', 'S', 'x')
+>>> y.sort(key=string.lower)
+>>> y
+['a', 'b', 'd', 'f', 'G', 'h', 'R', 'r', 'S', 'x']
+>>> 
+>>> x = list('abcd')
+>>> y = [0,1,2,3]
+>>> zip(x,y)
+[('a', 0), ('b', 1), ('c', 2), ('d', 3)]
+>>> dict(zip(x,y))
+{'a': 0, 'c': 2, 'b': 1, 'd': 3}
+>>> z = zip(x,y)
+>>> z
+[('a', 0), ('b', 1), ('c', 2), ('d', 3)]
+>>> zip(*z)
+[('a', 'b', 'c', 'd'), (0, 1, 2, 3)]
+>>> import itertools
+>>> z = itertools.izip(x,y)
+>>> z
+<itertools.izip object at 0x10311c5f0>
+>>> list(z)
+[('a', 0), ('b', 1), ('c', 2), ('d', 3)]
+>>> 
+>>> 
+>>> x
+['a', 'b', 'c', 'd']
+>>> x = range(5)
+>>> x
+[0, 1, 2, 3, 4]
+>>> [i**2 for i in x]
+[0, 1, 4, 9, 16]
+>>> list(i**2 for i in x)
+[0, 1, 4, 9, 16]
+>>> tuple(i**2 for i in x)
+(0, 1, 4, 9, 16)
+>>> (i**2 for i in x)
+<generator object <genexpr> at 0x1030c7d20>
+>>> g = (i**2 for i in x)
+>>> g
+<generator object <genexpr> at 0x10314fa50>
+>>> list(g)
+[0, 1, 4, 9, 16]
+>>> g = (i**2 for i in x)
+>>> g.next()
+0
+>>> g.next()
+1
+>>> g.next()
+4
+>>> g.next()
+9
+>>> list(g)
+[16]
+>>> x
+[0, 1, 2, 3, 4]
+>>> g = iter(x)
+>>> g
+<listiterator object at 0x1030cdc50>
+>>> g.next()
+0
+>>> g.next()
+1
+>>> g.next()
+2
+>>> g.next()
+3
+>>> list(g)
+[4]
+>>> g = (i**2 for i in x)
+>>> for i in g:
+...   print i,
+... 
+0 1 4 9 16
+>>> d = dict(zip(x,y))
+>>> d
+{0: 0, 1: 1, 2: 2, 3: 3}
+>>> d.keys()
+[0, 1, 2, 3]
+>>> d.iterkeys()
+<dictionary-keyiterator object at 0x103145730>
+>>> (i**2 for i in d.iterkeys())
+<generator object <genexpr> at 0x1030c7eb0>
+>>> squares = (i**2 for i in d.iterkeys())
+>>> truncated = (i**0.5 for i in squares if i > 3)
+>>> list(truncated)
+[2.0, 3.0]
+>>> 
+
+In [1]: x = range(10000000)
+
+In [2]: x = di
+%dirs   dict    dir     divmod  
+
+In [2]: x = dict(zip(x,x))
+
+In [3]: %timeit tuple(x.itervalues())
+10 loops, best of 3: 161 ms per loop
+
+In [4]: %timeit tuple(x.values())
+1 loop, best of 3: 215 ms per loop
+
+In [5]: %timeit [k**2 for k in x.keys()]
+1 loop, best of 3: 939 ms per loop
+
+In [6]: %timeit [k**2 for k in x.iterkeys()]
+1 loop, best of 3: 845 ms per loop
+
+In [7]: %timeit [k**2 for k in x]
+1 loop, best of 3: 841 ms per loop
+
+In [8]: x = range(10)
+
+In [9]: x = dict(zip(x,x))
+
+In [10]: %timeit [k**2 for k in x.keys()]
+The slowest run took 4.85 times longer than the fastest. This could mean that an intermediate result is being cached.
+1000000 loops, best of 3: 1.42 us per loop
+
+In [11]: %timeit [k**2 for k in x.iterkeys()]
+The slowest run took 6.92 times longer than the fastest. This could mean that an intermediate result is being cached.
+1000000 loops, best of 3: 1.28 us per loop
+
+In [12]: %timeit [k**2 for k in x]
+The slowest run took 4.39 times longer than the fastest. This could mean that an intermediate result is being cached.
+1000000 loops, best of 3: 1.14 us per loop
+
+In [13]: %timeit -n 10 [k**2 for k in x]
+10 loops, best of 3: 2.5 us per loop
+
+>>> x
+[0, 1, 2, 3, 4]
+>>> x[1:3] = []
+>>> x
+[0, 3, 4]
+>>> 
+>>> def add(x,y):
+...   return x+y
+... 
+>>> add    (1,2)
+3
+>>> (x,y) = (1,2)
+>>> x
+1
+>>> y
+2
+>>> 
+>>> x = 1
+>>> y = 2
+>>> x,y
+(1, 2)
+>>> x,y = y,x
+>>> x
+2
+>>> y
+1
+>>> q = x,y = y,x
+>>> q
+(1, 2)
+>>> def foo(x,y,z):
+...   return x**2, y**2, z**2
+... 
+>>> foo(1,2,3)
+(1, 4, 9)
+>>> x,x,x = foo(1,2,3)
+>>> x
+9
+>>> x,y,y = foo(1,2,3)
+>>> x
+1
+>>> y
+9
+>>> x,y = foo(1,2,3)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: too many values to unpack
+>>> foo(None,2,3)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 2, in foo
+TypeError: unsupported operand type(s) for ** or pow(): 'NoneType' and 'int'
+>>> d = zip(range(4),list('abcd'))
+>>> d
+[(0, 'a'), (1, 'b'), (2, 'c'), (3, 'd')]
+>>> d = dict(zip(range(4),list('abcd')))
+>>> d
+{0: 'a', 1: 'b', 2: 'c', 3: 'd'}
+>>> d.items()
+[(0, 'a'), (1, 'b'), (2, 'c'), (3, 'd')]
+>>> d = dict(zip(list('abcd'),range(4)))
+>>> d
+{'a': 0, 'c': 2, 'b': 1, 'd': 3}
+>>> d.items()
+[('a', 0), ('c', 2), ('b', 1), ('d', 3)]
+>>> d
+{'a': 0, 'c': 2, 'b': 1, 'd': 3}
+>>> print d
+{'a': 0, 'c': 2, 'b': 1, 'd': 3}
+>>> d[0]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+KeyError: 0
+>>> d = dict(zip(range(4),list('abcd')))
+>>> d
+{0: 'a', 1: 'b', 2: 'c', 3: 'd'}
+>>> d[0]
+'a'
+>>> d[-1]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+KeyError: -1
+>>> 
+>>> 
+>>> d
+{0: 'a', 1: 'b', 2: 'c', 3: 'd'}
+>>> d = dict(zip(list('abcd'),range(4)))
+>>> d
+{'a': 0, 'c': 2, 'b': 1, 'd': 3}
+>>> d.keys()
+['a', 'c', 'b', 'd']
+>>> d.values()
+[0, 2, 1, 3]
+>>> d.itervalues()
+<dictionary-valueiterator object at 0x103145788>
+>>> tuple(d.itervalues())
+(0, 2, 1, 3)
+>>> tuple(d.values())
+(0, 2, 1, 3)
+>>> 
+>>> 
+>>> d
+{'a': 0, 'c': 2, 'b': 1, 'd': 3}
+>>> for key in d:
+...   print key,
+... 
+a c b d
+>>> for key in d.keys():
+...   print key,
+... 
+a c b d
+>>> for key in d.iterkeys():
+...   print key,
+... 
+a c b d
+>>> 
+
+
+>>> key
+'d'
+>>> d
+{'a': 0, 'c': 2, 'b': 1, 'd': 3}
+>>> d.keys()
+['a', 'c', 'b', 'd']
+>>> d[(0,1,2)] = min
+>>> d
+{'a': 0, (0, 1, 2): <built-in function min>, 'c': 2, 'b': 1, 'd': 3}
+>>> del d[(0,1,2)]
+>>> d
+{'a': 0, 'c': 2, 'b': 1, 'd': 3}
+>>> set(d.iterkeys())
+set(['a', 'c', 'b', 'd'])
+>>> s = set(d.iterkeys())
+>>> s
+set(['a', 'c', 'b', 'd'])
+>>> s.intersection('abcrt')
+set(['a', 'c', 'b'])
+>>> s.union('abcrt')
+set(['a', 'c', 'b', 'd', 'r', 't'])
+>>> set([1,2]) is set([1,2])
+False
+>>> x = set([1,2])              
+>>> x
+set([1, 2])
+>>> id(x)
+4346006088
+>>> y = set([1,2])
+>>> id(y)
+4346006320
+>>> x == y
+True
+>>> x is y
+False
+>>> 
+>>> 
+>>> x
+set([1, 2])
+>>> x = range(0,10,2)
+>>> 
+>>> x
+[0, 2, 4, 6, 8]
+>>> for i in x:
+...   print i**2,
+... 
+0 4 16 36 64
+>>> xi = iter(x)
+>>> xi.next()**2
+0
+>>> xi.next()**2
+4
+>>> xi.next()**2
+16
+>>> xi.next()**2
+36
+>>> xi.next()**2
+64
+>>> x
+[0, 2, 4, 6, 8]
+>>> for i in range(len(x)):
+...   print x[i]**2,
+... 
+0 4 16 36 64
+>>> xi = iter(x)
+>>> xi.next()
+0
+>>> xi.next()
+2
+>>> 
+>>> for i in x:
+...   print i**2,
+... 
+0 4 16 36 64
+>>> 
+>>> x
+[0, 2, 4, 6, 8]
+>>> x = range(5)
+>>> 
+>>> x
+[0, 1, 2, 3, 4]
+>>> [i**2 for i in x if i > 2]
+[9, 16]
+>>> [i**2 for i in x if i < 2]
+[0, 1]
+>>> [i**2 for i in x if i >= 2]
+[4, 9, 16]
+>>> 
+>>> [i**2 if i < 4 else i**3 for i in x if i >= 2]
+[4, 9, 64]
+>>> [i**2 if i < 4 else i**3 for i in (j**.5 for j in x) if i >= 2]
+[4.0]
+>>> f = lambda i:i**2 if i < 4 else i**3
+>>> f(3)
+9
+>>> f(11)
+1331
+>>> def g(i):
+...   return i**2 if i < 4 else i**3
+... 
+>>> [f(i) for i in x if i >= 2]
+[4, 9, 64]
+>>> 
+>>> def squared(x):
+...   return x**2
+... 
+>>> [squared(i) for i in x]
+[0, 1, 4, 9, 16]
+>>> map(squared, x)
+[0, 1, 4, 9, 16]
+>>> apply(squared, x[0])
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: apply() arg 2 expected sequence, found int
+>>> apply(squared, (x[0],))
+0
+>>> import multiprocessing as mp
+>>> threads = mp.dummy        
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'module' object has no attribute 'dummy'
+>>> from multiprocessing import dummy as threads
+>>> pool = threads.Pool()
+>>> pool.map(squared, x)
+[0, 1, 4, 9, 16]
+>>> x = 1
+>>> type(x) in (float, int)
+True
+>>> ' '.__add__('y')
+' y'
+>>> 
+>>> 
+>>> def quadratic(x, a=1, b=1, c=0):
+...   return a*x**2 + b*x + c
+... 
+>>> quadratic(2, a=0, b=3)
+6
+>>> def quad_factory(a=1, b=1, c=0):
+...   def quad(x):
+...     return a*x**2 + b*x + c
+...   return quad
+... 
+>>> tripler = quad_factory(a=0, b=3)
+>>> tripler(4)
+12
+>>> class Quad_fact(object):
+...   def __init__(self, a=1, b=1, c=0):
+...     self.a, self.b, self.c = a,b,c
+...   def __call__(self, x):
+...     return self.a*x**2 + self.b*x + self.c
+... 
+>>> doubler = Quad_fact(a=0, b=2)
+>>> doubler(4)
+8
+>>> a = 1   
+>>> a.__class__
+<type 'int'>
+>>> int
+<type 'int'>
+>>> a.__class__.g = lambda self: "hello"       
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can't set attributes of built-in/extension type 'int'
+>>> doubler.__class__.g = lambda self: "hello"
+>>> Quad_fact.g(doubler)
+'hello'
+>>> class MyInt(int):
+...   pass
+... 
+>>> 
+>>> 
+>>> 
+>>> def process(x, y=1, **kwds):
+...   z = kwds.get('z', 0)
+...   return z * x+y
+... 
+>>> def process(x, y=1, **kwds):
+...   z = kwds.get('z', 1)
+...   return z * x+y
+... 
+>>> process(1)
+2
+>>> process(2)
+3
+>>> process(2,3)
+5
+>>> help(process)
+
+>>> process.__doc__ = "add x and y, multiply by z if given"
+>>> help(process)
+
+>>> process(2,3,5)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: process() takes at most 2 arguments (3 given)
+>>> process(2,3,z=5)
+13
+>>> 

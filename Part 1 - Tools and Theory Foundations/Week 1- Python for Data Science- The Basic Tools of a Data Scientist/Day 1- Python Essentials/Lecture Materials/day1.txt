@@ -1,0 +1,636 @@
+>>> object()
+<object object at 0x100bde090>
+>>> class Foo(object):
+...   def __init__(self, x):
+...     self.x = x
+...     return 
+...   def bar(self, y):
+...     return self.x + y
+... 
+>>> f = Foo(1)
+>>> f.x
+1
+>>> f.bar(4)
+5
+>>> Foo 
+<class '__main__.Foo'>
+>>> Foo.z = 3
+>>> f.z
+3
+>>> Foo.mro()
+[<class '__main__.Foo'>, <type 'object'>]
+>>> class MyError(StandardError):
+...   pass
+... 
+>>> m = MyError()
+>>> m
+MyError()
+>>> raise m       
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+__main__.MyError
+>>> MyError.mro()
+[<class '__main__.MyError'>, <type 'exceptions.StandardError'>, <type 'exceptions.Exception'>, <type 'exceptions.BaseException'>, <type 'object'>]
+>>> object.__dict__
+dict_proxy({'__setattr__': <slot wrapper '__setattr__' of 'object' objects>, '__reduce_ex__': <method '__reduce_ex__' of 'object' objects>, '__new__': <built-in method __new__ of type object at 0x100aa21c0>, '__reduce__': <method '__reduce__' of 'object' objects>, '__str__': <slot wrapper '__str__' of 'object' objects>, '__format__': <method '__format__' of 'object' objects>, '__getattribute__': <slot wrapper '__getattribute__' of 'object' objects>, '__class__': <attribute '__class__' of 'object' objects>, '__delattr__': <slot wrapper '__delattr__' of 'object' objects>, '__subclasshook__': <method '__subclasshook__' of 'object' objects>, '__repr__': <slot wrapper '__repr__' of 'object' objects>, '__hash__': <slot wrapper '__hash__' of 'object' objects>, '__sizeof__': <method '__sizeof__' of 'object' objects>, '__doc__': 'The most base type', '__init__': <slot wrapper '__init__' of 'object' objects>})
+>>> Foo.__dict__
+dict_proxy({'__module__': '__main__', 'bar': <function bar at 0x100cbeaa0>, '__dict__': <attribute '__dict__' of 'Foo' objects>, 'z': 3, '__weakref__': <attribute '__weakref__' of 'Foo' objects>, '__doc__': None, '__init__': <function __init__ at 0x100cbe8c0>})
+>>> Foo.z
+3
+>>> Foo.bar
+<unbound method Foo.bar>
+>>> f.__dict__
+{'x': 1}
+>>> f.__class__  
+<class '__main__.Foo'>
+>>> type(f)
+<class '__main__.Foo'>
+>>> Foo          
+<class '__main__.Foo'>
+>>> g = f.__class__(x=2)
+>>> g
+<__main__.Foo object at 0x100ebefd0>
+>>> f
+<__main__.Foo object at 0x100ebec10>
+>>> f.z
+3
+>>> f.z = 5
+>>> g.z
+3
+>>> Foo.z
+3
+>>> Foo.z = -3
+>>> g.z
+-3
+>>> f.z 
+5
+>>> f.__dict__
+{'x': 1, 'z': 5}
+>>> a = 1
+>>> a == 1
+True
+>>> import math
+>>> math
+<module 'math' from '/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/math.so'>
+>>> import numpy
+>>> numpy 
+<module 'numpy' from '/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/__init__.pyc'>
+>>> numpy.__class__ 
+<type 'module'>
+>>> math.z = 4
+>>> math.z
+4
+>>> math.z = Foo.z
+>>> math.z
+-3
+>>> f.z
+5
+>>> f.z = Foo.z
+>>> f.__dict__
+{'x': 1, 'z': -3}
+>>> del f.z
+>>> f.__dict__
+{'x': 1}
+>>> f.z
+-3
+>>> a == 1
+True
+>>> q = a == 1
+>>> q
+True
+>>> bool(a == 1)
+True
+>>> type(True)
+<type 'bool'>
+>>> type(q)
+<type 'bool'>
+>>> q.__class__ 
+<type 'bool'>
+>>> q.__class__()
+False
+>>> bool()
+False
+>>> import types
+>>> types.BooleanType 
+<type 'bool'>
+>>> types.BooleanType is bool
+True
+>>> types.BooleanType == bool
+True
+>>> int()
+0
+>>> y = int(3.4)
+>>> y
+3
+>>> y is 3
+True
+>>> y == 3
+True
+>>> globals()['a']
+1
+>>> z = float(3.4)
+>>> z == 3.4
+True
+>>> z is 3.4
+False
+>>> z
+3.4
+>>> hex(id(z))
+'0x7fa013681028'
+>>> hex(id(float(3.4)))
+'0x7fa013681010'
+>>> hex(id(int(3.4)))
+'0x7fa01340c368'
+>>> hex(id(3)
+... )
+'0x7fa01340c368'
+>>> r = int(1234123412351251235123451251245125151)
+>>> r
+1234123412351251235123451251245125151L
+>>> type(r)
+<type 'long'>
+>>> r == int(1234123412351251235123451251245125151)
+True
+>>> r is int(1234123412351251235123451251245125151)
+False
+>>> True
+True
+>>> None
+>>> numpy.pi
+3.141592653589793
+>>> import __builtin__
+>>> __builtin__.max
+<built-in function max>
+>>> max
+<built-in function max>
+>>> max(1,2,3)
+3
+>>> max = max(1,2,3)
+>>> max
+3
+>>> max = max(4,5,6)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'int' object is not callable
+>>> max = min
+>>> max(4,5,6)
+4
+>>> max = __builtins__.max
+>>> max
+<built-in function max>
+>>> max(4,5,6)
+6
+>>> del max
+>>> max(4,5,6)
+6
+>>> exec('y = 3.4; y is 3.4')
+>>> exec('y = 3.4; q = y is 3.4')
+>>> q
+True
+>>> 
+>>> math
+<module 'math' from '/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/math.so'>
+>>> globals()['math']
+<module 'math' from '/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/math.so'>
+>>> math.sin(0)
+0.0
+>>> math.sin = max
+>>> del math
+>>> import math
+>>> math.sin
+<built-in function max>
+>>> import sys
+>>> sys.modules['math']
+<module 'math' from '/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/math.so'>
+>>> numpy
+<module 'numpy' from '/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/__init__.pyc'>
+>>> reload(math)
+<module 'math' from '/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/math.so'>
+>>> math.sin
+<built-in function sin>
+>>> from math import sin
+>>> sin
+<built-in function sin>
+>>> sin.__module__
+'math'
+>>> import numpy as np
+>>> np.sin
+<ufunc 'sin'>
+>>> math.sin
+<built-in function sin>
+>>> x = [1,2,3]
+>>> y = (1,2,3)
+>>> y[0]  
+1
+>>> x[0]
+1
+>>> y.__getitem__(0)
+1
+>>> def add(x,y):
+...   return x+y
+... 
+>>> add(1,2)
+3
+>>> add('foo','bar')
+'foobar'
+>>> x = np.array([1,2,3])
+>>> x    
+array([1, 2, 3])
+>>> y = [4,5,6]
+>>> add(x,y)
+array([5, 7, 9])
+>>> x
+array([1, 2, 3])
+>>> y
+[4, 5, 6]
+>>> x + y
+array([5, 7, 9])
+>>> x = [1,2,3]
+>>> x + y
+[1, 2, 3, 4, 5, 6]
+>>> x = np.array([1,2,3])
+>>> x[0]
+1
+>>> x[0] is 1
+False
+>>> type(x[0])    
+<type 'numpy.int64'>
+>>> 
+>>> import dill
+>>> dill.source.getsource(Foo)
+'class Foo(object):\n  def __init__(self, x):\n    self.x = x\n    return\n  def bar(self, y):\n    return self.x + y\n'
+>>> print dill.source.getsource(Foo)
+class Foo(object):
+  def __init__(self, x):
+    self.x = x
+    return
+  def bar(self, y):
+    return self.x + y
+
+>>> def zap(self, z):
+...   self.x = z
+... 
+>>> zap(f, 10)
+>>> f.x
+10
+>>> Foo.zap = zap
+>>> Foo.zap(f, 10)
+>>> f.x
+10
+>>> g.zap(-10)
+>>> g
+<__main__.Foo object at 0x100ebefd0>
+>>> g.x
+-10
+>>> a = 1
+>>> a = 1.1
+>>> a = min
+>>> x = list(y)
+>>> y
+[4, 5, 6]
+>>> x
+[4, 5, 6]
+>>> [1,2,3]
+[1, 2, 3]
+>>> x
+[4, 5, 6]
+>>> y = x
+>>> y is x
+True
+>>> x[0] = 1.23 
+>>> x
+[1.23, 5, 6]
+>>> y
+[1.23, 5, 6]
+>>> x[0] = [1,2,3]
+>>> x
+[[1, 2, 3], 5, 6]
+>>> y
+[[1, 2, 3], 5, 6]
+>>> z = x[0]
+>>> z
+[1, 2, 3]
+>>> z[0] = 100
+>>> z
+[100, 2, 3]
+>>> x
+[[100, 2, 3], 5, 6]
+>>> import copy
+>>> q = copy.copy(x)
+>>> q
+[[100, 2, 3], 5, 6]
+>>> q[-1] = -100
+>>> x
+[[100, 2, 3], 5, 6]
+>>> q[0][0] = 99
+>>> x
+[[99, 2, 3], 5, 6]
+>>> x[0] is q[0]
+True
+>>> list(x)
+[[99, 2, 3], 5, 6]
+>>> q = copy.deepcopy(x)
+>>> x[0] is q[0]
+False
+>>> def incrementer(x, y=[]):
+...   y.append(x)
+...   return y
+... 
+>>> w = [0,1]
+>>> incrementer(2, w)
+[0, 1, 2]
+>>> incrementer(3, w)
+[0, 1, 2, 3]
+>>> r = incrementer(4, w)
+>>> r
+[0, 1, 2, 3, 4]
+>>> r is w
+True
+>>> w
+[0, 1, 2, 3, 4]
+>>> incrementer(0)
+[0]
+>>> incrementer(1)
+[0, 1]
+>>> incrementer(2)
+[0, 1, 2]
+>>> incrementer.func_defaults
+([0, 1, 2],)
+>>> incrementer.func_defaults = ([],)
+>>> incrementer(3)
+[3]
+>>> def incrementer(x, y=None):
+...   if y is None: y = []
+...   y.append(x)
+...   return y
+... 
+>>> incrementer(3)
+[3]
+>>> incrementer(4)
+[4]
+>>> incrementer(5)
+[5]
+>>> 
+
+In [1]: x = [1,2,3,4,5]
+
+In [2]: y = [4,5,6,7,8]
+
+In [3]: set(x) 
+Out[3]: {1, 2, 3, 4, 5}
+
+In [4]: set(x).intersection(y)
+Out[4]: {4, 5}
+
+In [5]: tuple(i for i in x if i not in y)
+Out[5]: (1, 2, 3)
+
+In [6]: tuple(i for i in x if i in y)
+Out[6]: (4, 5)
+
+In [7]: %timeit tuple(i for i in x if i in y)
+The slowest run took 8.63 times longer than the fastest. This could mean that an intermediate result is being cached.
+100000 loops, best of 3: 1.74 us per loop
+
+In [8]: %timeit set(x).intersection(y)
+The slowest run took 13.45 times longer than the fastest. This could mean that an intermediate result is being cached.
+1000000 loops, best of 3: 514 ns per loop
+
+In [9]: x_ = set(x)
+
+In [10]: %timeit x_.intersection(y)
+The slowest run took 14.06 times longer than the fastest. This could mean that an intermediate result is being cached.
+1000000 loops, best of 3: 271 ns per loop
+
+In [11]: x = range(1000000)         
+
+In [12]: %timeit x[-1] in x
+100 loops, best of 3: 16.5 ms per loop
+
+In [13]: x = xrange(1000000)
+
+In [14]: %timeit x[-1] in x
+10 loops, best of 3: 22.4 ms per loop
+
+In [15]: x = range(1000000)
+
+In [16]: x = set(range(1000000))
+
+In [17]: %timeit 999999 in x
+The slowest run took 31.27 times longer than the fastest. This could mean that an intermediate result is being cached.
+10000000 loops, best of 3: 68.6 ns per loop
+
+In [18]: x = range(1000000)
+
+In [19]: %timeit x[-1] in x
+100 loops, best of 3: 16.6 ms per loop
+
+In [20]: x = range(1000000)
+
+In [21]: %timeit 999999 in set(x)
+10 loops, best of 3: 44.1 ms per loop
+
+In [22]: ls
+aapl_adj_close_plot/      pandas_climate_data/      pandas_solar_power/
+day1.txt                  pandas_dataframe/         pandas_wind_statistics/
+financial_moving_average/ pandas_io/                stock_returns/
+finger_exercises/         pandas_moving_average/
+
+>>> bool.mro()
+[<type 'bool'>, <type 'int'>, <type 'object'>]
+>>> int(True)
+1
+>>> a
+<built-in function min>
+>>> a = 1
+>>> a + 2
+3
+>>> _
+3
+>>> a + 2.1
+3.1
+>>> _      
+3.1
+>>> a + 2.2
+3.2
+>>> _
+3.2
+>>> sys
+<module 'sys' (built-in)>
+>>> import os
+>>> os.system('ls')
+XXX  YYY  day2 day3 day4 day5
+0
+>>> __name__
+'__main__'
+>>> numpy
+<module 'numpy' from '/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/__init__.pyc'>
+>>> numpy.__name__
+'numpy'
+>>> max
+<built-in function max>
+>>> max.__name__
+'max'
+>>> if __name__ == '__main__':
+...   print 'hello'
+... 
+hello
+>>> m
+MyError()
+>>> m.message = 'Oops'
+>>> raise m
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+__main__.MyError
+>>> m = MyError('Oops')
+>>> m.message
+'Oops'
+>>> raise m
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+__main__.MyError: Oops
+>>> 
+
+>>> def squared(x):
+...   return x**2
+... 
+>>> squared(5)
+25
+>>> assert squared(5) == 25
+>>> assert squared(5) == 5
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AssertionError
+>>> import co
+coerce(     compile(    complex(    continue    copy        copyright(
+>>> import pickletools
+>>> 1.4 + 2.3
+3.6999999999999997
+>>> 1.3 + 2.4
+3.7
+>>> x = 1.4 + 2.3
+>>> assert x == 3.7
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AssertionError
+>>> assert round(x,15) == round(3.7,15)
+>>> import decimal
+>>> 
+>>> 5/10
+0
+>>> 5/10.
+0.5
+>>> 5./10 
+0.5
+>>> 5/float(10)
+0.5
+>>> float(5/10)
+0.0
+>>> 5/10.
+0.5
+>>> 1. * 5/10 
+0.5
+>>> squared 
+<function squared at 0x101bbeed8>
+>>> def squared(x):
+...   return x**2
+... 
+>>> class triple(object):
+...   def __call__(self, x):
+...     return x**2
+... 
+>>> class triple(object):
+...   def __call__(self, x):
+...     return x**3
+... 
+>>> tripled = triple()
+>>> tripled(3)
+27
+>>> tripled.__call__(3)
+27
+>>> x = 4
+>>> if x > 4:
+...   print 'hi'
+... elif x == 4:
+...   print '4'
+... else:
+...   print 'lo'
+... 
+4
+>>> x = [1,2,3]
+>>> if len(x):
+...   print x
+... else:
+...   print 'empty'
+... 
+[1, 2, 3]
+>>> x.__len__()
+3
+>>> id(x)
+4323832824
+>>> hex(id(x))
+'0x101b873f8'
+>>> x.append(4)
+>>> hex(id(x))
+'0x101b873f8'
+>>> id(x)
+4323832824
+>>> x.__len__()
+4
+>>> for value in [1,2,3]:
+...   print value**2
+... 
+1
+4
+9
+>>> for value in (1,2,3):
+...   print value**2
+... 
+1
+4
+9
+>>> x = [1,2,3]
+>>> x * 3
+[1, 2, 3, 1, 2, 3, 1, 2, 3]
+>>> x = np.array([1,2,3])
+>>> x
+array([1, 2, 3])
+>>> x * 3
+array([3, 6, 9])
+>>> import string
+>>> x = ['a','b','c']
+>>> list('abc')
+['a', 'b', 'c']
+>>> x
+['a', 'b', 'c']
+>>> string.join(x, ' ')
+'a b c'
+>>> ' '.join(x)
+'a b c'
+>>> print dill.source.getsource(Foo)
+class Foo(object):
+  def __init__(self, x):
+    self.x = x
+    return
+  def bar(self, y):
+    return self.x + y
+
+>>> Foo.bar(g, 4)
+-6
+>>> g.bar(4)
+-6
+>>> g.__dict__
+{'x': -10}
+>>> 
+
+>>> "%s%% is %s percent" % (4,4)
+'4% is 4 percent'
+>>> "%(x)s%% is %(x)s percent" % {'x':4}
+'4% is 4 percent'
+>>> "{x}% is {x} percent".format(x=4)
+'4% is 4 percent'
+>>> "{}% is {} percent".format(4,4)
+'4% is 4 percent'
+>>> "{0}% is {0} percent".format(4)
+'4% is 4 percent'
+>>> 
