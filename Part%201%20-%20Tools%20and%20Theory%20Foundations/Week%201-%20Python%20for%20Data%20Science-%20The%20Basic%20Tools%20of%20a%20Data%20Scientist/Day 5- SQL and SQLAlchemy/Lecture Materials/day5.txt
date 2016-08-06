@@ -1,0 +1,272 @@
+>>> 4//5
+0
+>>> from __future__ import division
+>>> 4//5
+0
+>>> 4/5
+0.8
+>>> import pandas as pd
+>>> t = pd.date_range('1/1/2000', periods=4)
+>>> 
+>>> t
+DatetimeIndex(['2000-01-01', '2000-01-02', '2000-01-03', '2000-01-04'], dtype='datetime64[ns]', freq='D')
+>>> s1 = pd.Series(range(4), index=t)
+>>> s1
+2000-01-01    0
+2000-01-02    1
+2000-01-03    2
+2000-01-04    3
+Freq: D, dtype: int64
+>>> s1.index
+DatetimeIndex(['2000-01-01', '2000-01-02', '2000-01-03', '2000-01-04'], dtype='datetime64[ns]', freq='D')
+>>> s1 = pd.Series(range(4), index=['2000-01-01', '2000-01-02', '2000-01-03', '2000-01-04'])
+>>> s1
+2000-01-01    0
+2000-01-02    1
+2000-01-03    2
+2000-01-04    3
+dtype: int64
+>>> s1.index
+Index([u'2000-01-01', u'2000-01-02', u'2000-01-03', u'2000-01-04'], dtype='object')
+>>> df = pd.DataFrame({'s1':s1})
+>>> df
+            s1
+2000-01-01   0
+2000-01-02   1
+2000-01-03   2
+2000-01-04   3
+>>> import datetime      
+>>> df
+            s1
+2000-01-01   0
+2000-01-02   1
+2000-01-03   2
+2000-01-04   3
+>>> df.unstack()
+s1  2000-01-01    0
+    2000-01-02    1
+    2000-01-03    2
+    2000-01-04    3
+dtype: int64
+>>> df
+            s1
+2000-01-01   0
+2000-01-02   1
+2000-01-03   2
+2000-01-04   3
+>>> _df = df.unstack()
+>>> _df.iloc[0]
+0
+>>> 
+>>> df
+            s1
+2000-01-01   0
+2000-01-02   1
+2000-01-03   2
+2000-01-04   3
+>>> df['t'] = df.index
+>>> df['t']   
+2000-01-01    2000-01-01
+2000-01-02    2000-01-02
+2000-01-03    2000-01-03
+2000-01-04    2000-01-04
+Name: t, dtype: object
+>>>                                   
+>>> df.index.map(datetime.datetime.str)
+datetime.datetime.strftime(  datetime.datetime.strptime(
+>>> df.index.map(datetime.datetime.str)
+datetime.datetime.strftime(  datetime.datetime.strptime(
+>>> 
+>>> df.index.map(lambda x: datetime.datetime.strptime(x, '%Y-%m-%d'))
+array([datetime.datetime(2000, 1, 1, 0, 0),
+       datetime.datetime(2000, 1, 2, 0, 0),
+       datetime.datetime(2000, 1, 3, 0, 0),
+       datetime.datetime(2000, 1, 4, 0, 0)], dtype=object)
+>>> df.reindex(df.index.map(lambda x: datetime.datetime.strptime(x, '%Y-%m-%d')))
+            s1    t
+2000-01-01 NaN  NaN
+2000-01-02 NaN  NaN
+2000-01-03 NaN  NaN
+2000-01-04 NaN  NaN
+>>> 
+>>> df['t'] = df.index
+>>> df
+            s1           t
+2000-01-01   0  2000-01-01
+2000-01-02   1  2000-01-02
+2000-01-03   2  2000-01-03
+2000-01-04   3  2000-01-04
+>>> 
+>>> pd.Date
+pd.DateOffset(     pd.DatetimeIndex(  
+>>> pd.Date
+pd.DateOffset(     pd.DatetimeIndex(  
+>>> pd.DatetimeIndex(df.index)
+DatetimeIndex(['2000-01-01', '2000-01-02', '2000-01-03', '2000-01-04'], dtype='datetime64[ns]', freq=None)
+>>> df.index = pd.DatetimeIndex(df.index)
+>>> df
+            s1           t
+2000-01-01   0  2000-01-01
+2000-01-02   1  2000-01-02
+2000-01-03   2  2000-01-03
+2000-01-04   3  2000-01-04
+>>> df
+            s1           t
+2000-01-01   0  2000-01-01
+2000-01-02   1  2000-01-02
+2000-01-03   2  2000-01-03
+2000-01-04   3  2000-01-04
+>>> 
+>>> df['t'
+... ]
+2000-01-01    2000-01-01
+2000-01-02    2000-01-02
+2000-01-03    2000-01-03
+2000-01-04    2000-01-04
+Name: t, dtype: object
+>>> 
+>>> del df['t']
+>>> 
+>>> 
+>>> df
+            s1
+2000-01-01   0
+2000-01-02   1
+2000-01-03   2
+2000-01-04   3
+>>> 
+>>> s1
+2000-01-01    0
+2000-01-02    1
+2000-01-03    2
+2000-01-04    3
+dtype: int64
+>>> df
+            s1
+2000-01-01   0
+2000-01-02   1
+2000-01-03   2
+2000-01-04   3
+>>> df['s2'] = [True, True, False, True]
+>>> df
+            s1     s2
+2000-01-01   0   True
+2000-01-02   1   True
+2000-01-03   2  False
+2000-01-04   3   True
+>>> df.sum()
+s1    6.0
+s2    3.0
+dtype: float64
+>>> gb = df.groupby('s2')
+>>> gb
+<pandas.core.groupby.DataFrameGroupBy object at 0x1147c4b50>
+>>> gb.groups
+{False: [Timestamp('2000-01-03 00:00:00')], True: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-04 00:00:00')]}
+>>> gb.sum()
+       s1
+s2       
+False   2
+True    4
+>>> gb['s1']
+<pandas.core.groupby.SeriesGroupBy object at 0x112887090>
+>>> gb['s1'].sum()
+s2
+False    2
+True     4
+Name: s1, dtype: int64
+>>> 
+>>> gb
+<pandas.core.groupby.DataFrameGroupBy object at 0x1147c4b50>
+>>> gb.transform(lambda x:x)
+            s1
+2000-01-01   0
+2000-01-02   1
+2000-01-03   2
+2000-01-04   3
+>>> _
+            s1
+2000-01-01   0
+2000-01-02   1
+2000-01-03   2
+2000-01-04   3
+>>> type(_)
+<class 'pandas.core.frame.DataFrame'>
+>>> d1
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'd1' is not defined
+>>> 
+>>> df
+            s1     s2
+2000-01-01   0   True
+2000-01-02   1   True
+2000-01-03   2  False
+2000-01-04   3   True
+>>> 
+>>> df.set_index('s1')
+       s2
+s1       
+0    True
+1    True
+2   False
+3    True
+>>> _.unstack()   
+    s1
+s2  0      True
+    1      True
+    2     False
+    3      True
+dtype: bool
+>>> df.set_index('s1')
+       s2
+s1       
+0    True
+1    True
+2   False
+3    True
+>>> print _.unstack()
+    s1
+s2  0      True
+    1      True
+    2     False
+    3      True
+dtype: bool
+>>> 
+>>> df.set_index('s1')
+       s2
+s1       
+0    True
+1    True
+2   False
+3    True
+>>> _.reset_index()
+   s1     s2
+0   0   True
+1   1   True
+2   2  False
+3   3   True
+>>> df.stack()        
+2000-01-01  s1        0
+            s2     True
+2000-01-02  s1        1
+            s2     True
+2000-01-03  s1        2
+            s2    False
+2000-01-04  s1        3
+            s2     True
+dtype: object
+>>> _.unstack()
+           s1     s2
+2000-01-01  0   True
+2000-01-02  1   True
+2000-01-03  2  False
+2000-01-04  3   True
+>>> help(df.stack) 
+
+>>> 
+>>> st = df.stack()
+>>> st.index
+MultiIndex(levels=[[2000-01-01 00:00:00, 2000-01-02 00:00:00, 2000-01-03 00:00:00, 2000-01-04 00:00:00], [u's1', u's2']],
+           labels=[[0, 0, 1, 1, 2, 2, 3, 3], [0, 1, 0, 1, 0, 1, 0, 1]])
+>>> 
